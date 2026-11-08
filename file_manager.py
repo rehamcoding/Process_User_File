@@ -1,20 +1,18 @@
+import json
 from pathlib import Path
 
 def create_users_folder():
-
-    folder = Path("users")
+    folder = Path("users") 
     folder.mkdir(exist_ok=True)
 
-    return folder 
+    return folder
 
-files = {
-    "user1": '{"username": "Mark", "age": 22, "email": "mark@example.com"}',
-    "user2": '{"username": "Sarh", "age": 25, "email": "sarh@example.com"}'
-}
+def create_user_files(users_data, users_folder):
+    for filename, data in users_data.items():
+        file_path = users_folder / filename #عشان المفروض من الدايه نحدد اسم الملف مع الامتداد بدل نكتبه هنا
 
-def create_users_file(files, folder):
 
-    for filename, content in files.items():
-        file_path = filename / folder
-        file_path.write_text(content, encoding="utf-8") 
-    return None
+        file_path.write_text(
+            json.dumps(data, indent=4),
+            encoding="utf-8"
+        )
